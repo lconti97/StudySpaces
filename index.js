@@ -1,5 +1,3 @@
-
-
 var map;
 var studentArray = getStudents();  
 navigator.geolocation.getCurrentPosition(alertLocation);
@@ -8,43 +6,11 @@ for (var i = 0; i < 10; i++)
 addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL");
 
 function addComment(name, time, text) {
-  var feed = document.getElementById("feed");
+  var feed = document.getElementById("comments");
 
   var a = document.createElement("a");
   a.className += "list-group-item list-group-item-action flex-column align-items-start";
   feed.appendChild(a);
-
-/*var map=new google.maps.Map(document.getElementById('map'),{
-  zoom: 16,
-  center: 
-} */
-updateFeed(studentArray); 
-
-//getStudentFromPage();
-
-function getStudentFromPage()
-{
-  var name, course, comment;
-  if (document.getElementById('name').value)
-  {
-    name = document.getElementById('name').value
-  }
-  if (document.getElementById('course').value)
-  {
-    course = document.getElementById('course').value
-  }
-  if (document.getElementById('comment').value)
-  {
-    comment = document.getElementById('comment').value
-  }
-  console.log(name)
-  console.log(course)
-  console.log(comment)
-
-
-
-  //MAGICALLY SEND TO DATABASE
-}
 
   var div = document.createElement('div');
   div.className += "d-flex w-100 justify-content-between";
@@ -68,6 +34,30 @@ function getStudentFromPage()
 
   var textText = document.createTextNode(text);
   textElement.appendChild(textText);
+}
+
+function getStudentFromPage()
+{
+  var name, course, comment;
+  if (document.getElementById('name').value)
+  {
+    name = document.getElementById('name').value
+  }
+  if (document.getElementById('course').value)
+  {
+    course = document.getElementById('course').value
+  }
+  if (document.getElementById('comment').value)
+  {
+    comment = document.getElementById('comment').value
+  }
+  console.log(name)
+  console.log(course)
+  console.log(comment)
+
+
+
+  //MAGICALLY SEND TO DATABASE
 }
 
 function updateMarkers (studentArray){
