@@ -3,6 +3,16 @@
 var map;
 var studentArray = getStudents();  
 navigator.geolocation.getCurrentPosition(alertLocation);
+addComment("Lucas", "20 minutes ago", "no");
+for (var i = 0; i < 10; i++)
+addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL");
+
+function addComment(name, time, text) {
+  var feed = document.getElementById("feed");
+
+  var a = document.createElement("a");
+  a.className += "list-group-item list-group-item-action flex-column align-items-start";
+  feed.appendChild(a);
 
 /*var map=new google.maps.Map(document.getElementById('map'),{
   zoom: 16,
@@ -36,12 +46,28 @@ function getStudentFromPage()
   //MAGICALLY SEND TO DATABASE
 }
 
-function updateFeed(studentArray){
-  var update = "";
-  for (i = 0; i < studentArray.length; i++){
-    update = update + "<p><b>"+studentArray[i].name+"</b>" + " <i>is studying</i> "+ "<strong>"+studentArray[i].currentCourse+"</strong></p>"
-  }
-  document.getElementById('feed').innerHTML = update;
+  var div = document.createElement('div');
+  div.className += "d-flex w-100 justify-content-between";
+  a.appendChild(div);
+
+  var nameElement = document.createElement("h5");
+  div.appendChild(nameElement);
+
+  var nameTextNode = document.createTextNode(name);
+  nameElement.appendChild(nameTextNode);
+
+  var timeElement = document.createElement("small");
+  div.appendChild(timeElement);
+
+  var timeText = document.createTextNode(time);
+  timeElement.appendChild(timeText);
+
+  var textElement = document.createElement("small");
+  textElement.className += "mb-1";
+  a.appendChild(textElement);
+
+  var textText = document.createTextNode(text);
+  textElement.appendChild(textText);
 }
 
 function updateMarkers (studentArray){
