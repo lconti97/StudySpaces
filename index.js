@@ -1,15 +1,20 @@
 var map;
 var studentArray = getStudents();  
 navigator.geolocation.getCurrentPosition(alertLocation);
-addComment("Lucas", "20 minutes ago", "no");
+addComment("Lucas", "20 minutes ago", "no", 1);
 for (var i = 0; i < 10; i++)
-addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL");
+addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL", i+3);
 
-function addComment(name, time, text) {
+function addComment(name, time, text, id) {
   var feed = document.getElementById("comments");
 
   var a = document.createElement("a");
   a.className += "list-group-item list-group-item-action flex-column align-items-start";
+  a.setAttribute('data-posterId', id);
+  a.onclick = function(){
+      var id = this.getAttribute('data-posterId');
+      console.log("id: " + id);
+  }
   feed.appendChild(a);
 
   var div = document.createElement('div');
@@ -34,6 +39,7 @@ function addComment(name, time, text) {
 
   var textText = document.createTextNode(text);
   textElement.appendChild(textText);
+
 }
 
 function getStudentFromPage()
