@@ -111,7 +111,6 @@ def add_mssg():
 @app.route('/api/v1.0/messageGet', methods=['GET'])
 def get_mssg():
     all_mssg = db.child("messages").get()
-    for mssgs in all_mssg.each()
     return jsonify(all_mssg.val())
     
 

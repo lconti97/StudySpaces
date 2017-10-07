@@ -34,6 +34,7 @@ function addComment(name, time, text) {
 
   var textText = document.createTextNode(text);
   textElement.appendChild(textText);
+ 
 }
 
 function getStudentFromPage()
@@ -112,27 +113,15 @@ function addMarkerToMap(currentLocation, map) {
 }
 
 function getStudents() {
-    var sampleStudent1 = {
-      lat: 37.2333,
-      long: -80.4186,
-      name: "Lucas",
-      id: 13,
-      currentCourse: "CS 2506"
-    };
-     var sampleStudent2 = {
-      lat: 37.229,
-      long: -80.420,
-      name: "Lucas1",
-      id: 14,
-      currentCourse: "CS 3114"
-    };
-    var sampleStudent3 = {
-      lat: 37.22856,
-      long: -80.4193,
-      name: "Lucas2",
-      id: 15,
-      currentCourse: "MATH 6969"
-    };
-    var studentArray1 = [sampleStudent1, sampleStudent2, sampleStudent3];
-    return studentArray1; 
+    var xmlhttp = new XMLHttpRequest();
+	var url = "127.0.0.1:5000/api/v1.0/user";
+	xmlhttp.onreadystatechange = function() 
+	{
+		if (this.readyState == 4 && this.status == 200) {
+			var myArr = JSON.parse(this.responseText);
+		}
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    return myArr; 
   }
