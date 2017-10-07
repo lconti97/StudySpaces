@@ -6,9 +6,15 @@ navigator.geolocation.getCurrentPosition(alertLocation);
 startStudentUpdater();
 startCommentUpdater();
 addComment("Lucas", "", "Is anyone working on the shell?", 1);
+addComment("Chris", "", "Yeah, you need help?", 1);
+addComment("Lucas", "", "Sure, I'll come to you", 1);
+addComment("Will", "", "Can I join?", 2);
+addComment("Chris", "", "Of course!", 2);
 
 setTimeout(function() {
   addMarkerToMap({lat: 37.229, lng: -80.420}, map, "What's a splay tree?");
+  addComment("Edric", "", "What's a splay tree?", 1);
+
 }, 15000);
 
 var id;
