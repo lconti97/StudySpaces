@@ -5,6 +5,11 @@ var currentLocation;
 navigator.geolocation.getCurrentPosition(alertLocation);
 startStudentUpdater();
 startCommentUpdater();
+
+setTimeout(function() {
+  addMarkerToMap({lat: 37.229, lng: -80.420}, map, "What's a splay tree?");
+}, 15000);
+
 var id;
 
 function startCommentUpdater() {
@@ -178,11 +183,21 @@ function createMapCenteredOnLocation(currentLocation) {
   });
 }
 
-function addMarkerToMap(currentLocation, map) {
+function addMarkerToMap(currentLocation, map, tip) {
   new google.maps.Marker({
     position: currentLocation,
-    map: map,
+    map: map
   });
+  var mark = new google.maps.Marker({
+      position: currentLocation,
+      map: map
+    }
+  );
+
+  var infowindow = new google.maps.InfoWindow({
+    content: tip
+  });
+  infowindow.open(map, mark);
 
 }
 
