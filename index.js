@@ -1,6 +1,6 @@
 
 // var pylons = {lat: 37.229, lng: -80.420};
-navigator.geolocation.getCurrentPosition(alertLocation)
+navigator.geolocation.getCurrentPosition(alertLocation);
 
 var sampleStudent = {
   lat: 37.229,
@@ -20,7 +20,7 @@ function alertLocation(position) {
   addMarkerToMap(currentLocation, map);
 }
 
-function createMapCenteredOnLocation() {
+function createMapCenteredOnLocation(currentLocation) {
   return new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
     center: currentLocation
