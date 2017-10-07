@@ -5,6 +5,7 @@ var currentLocation;
 navigator.geolocation.getCurrentPosition(alertLocation);
 startStudentUpdater();
 startCommentUpdater();
+addComment("Lucas", "", "Is anyone working on the shell?", 1);
 
 setTimeout(function() {
   addMarkerToMap({lat: 37.229, lng: -80.420}, map, "What's a splay tree?");
@@ -47,7 +48,7 @@ function addComment(name, time, text, id) {
   nameElement.appendChild(nameTextNode);
 
   var timeElement = document.createElement("small");
-  div.appendChild(timeElement);
+  //div.appendChild(timeElement);
 
   var timeText = document.createTextNode(time);
   timeElement.appendChild(timeText);
