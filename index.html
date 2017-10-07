@@ -33,6 +33,14 @@
            currentCourse: "CS 2506"
          }
       }
+      function displayStudent(sampleStudent){
+        var studentMarker = new google.maps.Marker({
+          position: {lat: sampleStudent.lat, lng: sampleStudent.long},
+          map: map,
+          title: sampleStudent.name,
+         })
+        //call api
+      }
 
       function alertLocation(position) {
         var currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
@@ -40,10 +48,12 @@
           zoom: 16,
           center: currentLocation
         });
-        var marker = new google.maps.Marker({
+         displayStudent(sampleStudent)
+        
+        /*var marker = new google.maps.Marker({
           position: currentLocation,
           map: map
-        });
+        });*/
       }
     </script>
     <script async defer
