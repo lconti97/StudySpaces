@@ -1,7 +1,8 @@
 
-// var pylons = {lat: 37.229, lng: -80.420};
+
+var map;
+var studentArray = getStudents();  
 navigator.geolocation.getCurrentPosition(alertLocation);
-var studentArray = getStudents();
 addComment("Lucas", "20 minutes ago", "no");
 for (var i = 0; i < 10; i++)
 addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL");
@@ -12,6 +13,38 @@ function addComment(name, time, text) {
   var a = document.createElement("a");
   a.className += "list-group-item list-group-item-action flex-column align-items-start";
   feed.appendChild(a);
+
+/*var map=new google.maps.Map(document.getElementById('map'),{
+  zoom: 16,
+  center: 
+} */
+updateFeed(studentArray); 
+
+//getStudentFromPage();
+
+function getStudentFromPage()
+{
+  var name, course, comment;
+  if (document.getElementById('name').value)
+  {
+    name = document.getElementById('name').value
+  }
+  if (document.getElementById('course').value)
+  {
+    course = document.getElementById('course').value
+  }
+  if (document.getElementById('comment').value)
+  {
+    comment = document.getElementById('comment').value
+  }
+  console.log(name)
+  console.log(course)
+  console.log(comment)
+
+
+
+  //MAGICALLY SEND TO DATABASE
+}
 
   var div = document.createElement('div');
   div.className += "d-flex w-100 justify-content-between";
@@ -37,14 +70,40 @@ function addComment(name, time, text) {
   textElement.appendChild(textText);
 }
 
+function updateMarkers (studentArray){
+  for (i = 0; i < studentArray.length; i++){
+    var location = {
+      lat: studentArray[i].lat,
+      lng: studentArray[i].long
+    }
+    var mark = new google.maps.Marker({
+      position: location,
+      map: map
+    }
+    );
+
+    var infowindow = new google.maps.InfoWindow({
+      content : studentArray[i].name
+    });
+    infowindow.open(map,mark);
+
+    /*var infoWin = new google.maps.InfoWindows({
+      content: studentArray[i].name
+    });
+    infoWin.open(map,mark);*/
+  }
+}
+
 function alertLocation(position) {
   var currentLocation = {
     lat: position.coords.latitude,
     lng: position.coords.longitude
   };
 
-  var map = createMapCenteredOnLocation(currentLocation);
+  map = createMapCenteredOnLocation(currentLocation);
   addMarkerToMap(currentLocation, map);
+  updateMarkers(studentArray);
+
 }
 
 function createMapCenteredOnLocation(currentLocation) {

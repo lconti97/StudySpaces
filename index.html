@@ -23,8 +23,17 @@
 <body style="background-color: #f2f3f4">
 <div id="wrapper">
     <div id="map"></div>
-    <div id="feed" class="list-group scrollable-menu">
+    <div id="feed" class="list-group scrollable-menu"></div>
+    <div id="input">
+        <form id="frm1" action="/action_page.php">
+            Name: <input type="text" id="name"><br>
+            Studying for a class?: <input type="text" id="course"><br><br>
+            Leave a Comment! <input type="text" id="comment" height="30px" width="100"><br><br>
+            <input type="button" id="inputButton" onclick="getStudentFromPage()" value="Submit">
+        </form>
+    </div>
 </div>
+  
 <script src="index.js"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpN0CkpWdud4lx1ToolfVreaul08z42bo&callback=initMap">
