@@ -5,6 +5,12 @@ addComment("Lucas", "20 minutes ago", "no", 1);
 for (var i = 0; i < 10; i++)
 addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL", i+3);
 
+function runEveryMin(){
+  console.log("runEveryMin");
+
+  setTimeout(runEveryMin,60000)
+}
+
 function addComment(name, time, text, id) {
   var feed = document.getElementById("comments");
 
@@ -118,7 +124,7 @@ function addMarkerToMap(currentLocation, map) {
 }
 
 function getStudents() {
-    var xmlhttp = new XMLHttpRequest();
+  var xmlhttp = new XMLHttpRequest();
 	var url = "127.0.0.1:5000/api/v1.0/user";
 	xmlhttp.onreadystatechange = function() 
 	{
