@@ -1,14 +1,22 @@
+
 var map;
-var studentArray = getStudents();  
+var studentArray = updateStudents();
+var currentLocation;
 navigator.geolocation.getCurrentPosition(alertLocation);
-addComment("Lucas", "20 minutes ago", "no", 1);
-for (var i = 0; i < 10; i++)
-addComment("Chris", "Every 5 seconds", "DABS AND WHIPS OMEGALUL", i+3);
+startStudentUpdater();
+startCommentUpdater();
+var id;
 
-function runEveryMin(){
-  console.log("runEveryMin");
+function startCommentUpdater() {
+  updateComments();
 
-  setTimeout(runEveryMin,60000)
+  setTimeout(startCommentUpdater, 1000);
+}
+
+function startStudentUpdater() {
+  updateStudents();
+
+  setTimeout(startStudentUpdater, 10000);
 }
 
 function addComment(name, time, text, id) {
@@ -17,9 +25,9 @@ function addComment(name, time, text, id) {
   var a = document.createElement("a");
   a.className += "list-group-item list-group-item-action flex-column align-items-start";
   a.setAttribute('data-posterId', id);
-  a.onclick = function(){
-      var id = this.getAttribute('data-posterId');
-      console.log("id: " + id);
+  a.onclick = function () {
+    var id = this.getAttribute('data-posterId');
+    console.log("id: " + id);
   }
   feed.appendChild(a);
 
@@ -48,56 +56,111 @@ function addComment(name, time, text, id) {
 
 }
 
-function getStudentFromPage()
-{
+function submitComment() {
   var name, course, comment;
-  if (document.getElementById('name').value)
-  {
+  if (document.getElementById('name').value) {
     name = document.getElementById('name').value
   }
-  if (document.getElementById('course').value)
-  {
+  if (document.getElementById('course').value) {
     course = document.getElementById('course').value
   }
-  if (document.getElementById('comment').value)
-  {
+  if (document.getElementById('comment').value) {
     comment = document.getElementById('comment').value
   }
-  console.log(name)
-  console.log(course)
-  console.log(comment)
+
+  var date = new Date();
+  var formattedTime = date.getHours() + ":" + date.getMinutes();
+  addComment(name, formattedTime, comment, 1);
 
 
+  if (!id) {
+    postStudent(name, location, course, function(response) {
+      var responseJSON = JSON.parse(response.text);
+      id = responseJSON.id;
+      var comment;
+      if (document.getElementById('comment').value) {
+        comment = document.getElementById('comment').value
+      }
+      postComment(responseJSON.id, new Date().getTime(), comment, function() {
+        updateComments();
+      });
+    });
+  }
+
+  else {
+    if (document.getElementById('comment').value) {
+      comment = document.getElementById('comment').value
+    }
+    postComment(id, new Date().getTime(), comment, function() {
+      updateComments();
+    })
+  }
 
   //MAGICALLY SEND TO DATABASE
 }
 
-function updateMarkers (studentArray){
-  for (i = 0; i < studentArray.length; i++){
+function postStudent(name, currentLocation, currentCourse, onSuccess) {
+  var xmlhttp = new XMLHttpRequest();
+  var url = "https://127.0.0.1:5000/api/v1.0/userpost";
+  var content = JSON.stringify({
+    name:name,
+    currentLocation:currentLocation,
+    currentCourse:currentCourse
+  });
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      onSuccess(this);
+    }
+  };
+  xmlhttp.open("POST", url, true);
+  xmlhttp.send(content);
+  return myArr;
+}
+
+function postComment(studentId, currentTime, text, onSuccess) {
+  var xmlhttp = new XMLHttpRequest();
+  var url = "https://127.0.0.1:5000/api/v1.0/user";
+  var content = JSON.stringify({
+    id:id,
+    currentTime:currentTime,
+    text:text
+  });
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      onSuccess(this);
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send(content);
+  return myArr;
+}
+
+function updateMarkers(studentArray) {
+  for (var i = 0; i < studentArray.length; i++) {
     var location = {
       lat: studentArray[i].lat,
       lng: studentArray[i].long
-    }
+    };
     var mark = new google.maps.Marker({
-      position: location,
-      map: map
-    }
+        position: location,
+        map: map
+      }
     );
 
     var infowindow = new google.maps.InfoWindow({
-      content : studentArray[i].name
-    });
-    infowindow.open(map,mark);
-
-    /*var infoWin = new google.maps.InfoWindows({
       content: studentArray[i].name
     });
-    infoWin.open(map,mark);*/
+    infowindow.open(map, mark);
+
+    /*var infoWin = new google.maps.InfoWindows({
+     content: studentArray[i].name
+     });
+     infoWin.open(map,mark);*/
   }
 }
 
 function alertLocation(position) {
-  var currentLocation = {
+  currentLocation = {
     lat: position.coords.latitude,
     lng: position.coords.longitude
   };
@@ -123,16 +186,18 @@ function addMarkerToMap(currentLocation, map) {
 
 }
 
-function getStudents() {
+function updateStudents() {
   var xmlhttp = new XMLHttpRequest();
-	var url = "127.0.0.1:5000/api/v1.0/user";
-	xmlhttp.onreadystatechange = function() 
-	{
-		if (this.readyState == 4 && this.status == 200) {
-			var myArr = JSON.parse(this.responseText);
-		}
-	};
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
-    return myArr; 
-  }
+  var url = "https://127.0.0.1:5000/api/v1.0/user";
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var myArr = JSON.parse(this.responseText);
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
+function updateComments() {
+
+}
