@@ -11,7 +11,7 @@ function updateFeed(studentArray){
   for (i = 0; i < studentArray.length; i++){
     update = update + "<p><b>"+studentArray[i].name+"</b>" + " <i>is studying</i> "+ "<strong>"+studentArray[i].currentCourse+"</strong></p>"
   }
-  document.getElementById('feed').innerHTML = update;
+  //document.getElementById('feed').innerHTML = update;
 }
 
 function alertLocation(position) {
