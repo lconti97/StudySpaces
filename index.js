@@ -10,7 +10,31 @@ navigator.geolocation.getCurrentPosition(alertLocation);
 } */
 updateFeed(studentArray); 
 
+//getStudentFromPage();
 
+function getStudentFromPage()
+{
+  var name, course, comment;
+  if (document.getElementById('name').value)
+  {
+    name = document.getElementById('name').value
+  }
+  if (document.getElementById('course').value)
+  {
+    course = document.getElementById('course').value
+  }
+  if (document.getElementById('comment').value)
+  {
+    comment = document.getElementById('comment').value
+  }
+  console.log(name)
+  console.log(course)
+  console.log(comment)
+
+
+
+  //MAGICALLY SEND TO DATABASE
+}
 
 function updateFeed(studentArray){
   var update = "";

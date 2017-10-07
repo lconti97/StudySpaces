@@ -15,10 +15,18 @@
     </style>
   </head>
   <body>
-    <h3>StudySpaces????</h3>
+    <h3>StudySpaces</h3>
     <div id="wrapper">
       <div id="map"></div>
       <div id="feed"><h4>This is the feed??????</h4></div>
+    </div>
+    <div id="input">
+        <form id="frm1" action="/action_page.php">
+        Name: <input type="text" id="name"><br>
+        Studying for a class?: <input type="text" id="course"><br><br>
+        Leave a Comment! <input type="text" id="comment" height="30px" width="100"><br><br>
+    <input type="button" id="inputButton" onclick="getStudentFromPage()" value="Submit">
+  </form>
     </div>
     <script src="index.js"></script>
     <script async defer
