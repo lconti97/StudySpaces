@@ -1,7 +1,13 @@
 
-// var pylons = {lat: 37.229, lng: -80.420};
+
+var map;
+var studentArray = getStudents();  
 navigator.geolocation.getCurrentPosition(alertLocation);
-var studentArray = getStudents();
+
+/*var map=new google.maps.Map(document.getElementById('map'),{
+  zoom: 16,
+  center: 
+} */
 updateFeed(studentArray); 
 
 
@@ -14,14 +20,40 @@ function updateFeed(studentArray){
   document.getElementById('feed').innerHTML = update;
 }
 
+function updateMarkers (studentArray){
+  for (i = 0; i < studentArray.length; i++){
+    var location = {
+      lat: studentArray[i].lat,
+      lng: studentArray[i].long
+    }
+    var mark = new google.maps.Marker({
+      position: location,
+      map: map
+    }
+    );
+
+    var infowindow = new google.maps.InfoWindow({
+      content : studentArray[i].name
+    });
+    infowindow.open(map,mark);
+
+    /*var infoWin = new google.maps.InfoWindows({
+      content: studentArray[i].name
+    });
+    infoWin.open(map,mark);*/
+  }
+}
+
 function alertLocation(position) {
   var currentLocation = {
     lat: position.coords.latitude,
     lng: position.coords.longitude
   };
 
-  var map = createMapCenteredOnLocation(currentLocation);
+  map = createMapCenteredOnLocation(currentLocation);
   addMarkerToMap(currentLocation, map);
+  updateMarkers(studentArray);
+
 }
 
 function createMapCenteredOnLocation(currentLocation) {
