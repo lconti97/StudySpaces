@@ -7,7 +7,10 @@ updateFeed(studentArray);
 
 
 function updateFeed(studentArray){
-  var update = "<b>"+studentArray[0].name+"</b>" + " <i>is studying</i> "+ "<strong>"+studentArray[0].currentCourse+"</strong>"
+  var update = "";
+  for (i = 0; i < studentArray.length; i++){
+    update = update + "<p><b>"+studentArray[i].name+"</b>" + " <i>is studying</i> "+ "<strong>"+studentArray[i].currentCourse+"</strong></p>"
+  }
   document.getElementById('feed').innerHTML = update;
 }
 
@@ -59,5 +62,5 @@ function getStudents() {
       currentCourse: "MATH 6969"
     };
     var studentArray1 = [sampleStudent1, sampleStudent2, sampleStudent3];
-    return studentArray1;
+    return studentArray1; 
   }
