@@ -188,16 +188,19 @@ function addMarkerToMap(currentLocation, map, tip) {
     position: currentLocation,
     map: map
   });
-  var mark = new google.maps.Marker({
-      position: currentLocation,
-      map: map
-    }
-  );
 
-  var infowindow = new google.maps.InfoWindow({
-    content: tip
-  });
-  infowindow.open(map, mark);
+  if(tip) {
+    var mark = new google.maps.Marker({
+        position: currentLocation,
+        map: map
+      }
+    );
+
+    var infowindow = new google.maps.InfoWindow({
+      content: tip
+    });
+    infowindow.open(map, mark);
+  }
 
 }
 
